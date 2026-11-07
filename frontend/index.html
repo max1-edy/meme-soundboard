@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="uk" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meme Soundboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://unpkg.com/lucide@0.453.0"></script>
+  <style>.pulse { animation: pulse .3s; } @keyframes pulse { 50% { transform: scale(.92); filter: brightness(1.5); } }</style>
+</head>
+<body class="p-4 max-w-5xl mx-auto">
+  <!-- Верхня панель -->
+  <div class="flex flex-wrap gap-2 items-center mb-4">
+    <button id="sotd" class="btn btn-sm btn-outline">Звук дня: —</button>
+    <button id="mute" class="btn btn-sm btn-ghost btn-circle"><i data-lucide="volume-2"></i></button>
+    <input id="volume" type="range" min="0" max="1" step="0.05" value="0.7" class="range range-xs w-32">
+    <input id="search" class="input input-sm input-bordered flex-1 min-w-32" placeholder="Пошук...">
+    <button id="random" class="btn btn-sm btn-secondary">Рандомний мем</button>
+    <button id="add" class="btn btn-sm btn-primary">+ Додати</button>
+  </div>
+  <div id="tabs" role="tablist" class="tabs tabs-boxed mb-4"></div>
+  <div id="grid" class="grid grid-cols-2 md:grid-cols-4 gap-3"></div>
+  <div id="stats" class="mt-6 text-sm opacity-70"></div>
+
+  <!-- Модальне вікно -->
+  <dialog id="modal" class="modal">
+    <div class="modal-box space-y-2">
+      <h3 id="modal-title" class="font-bold text-lg">Новий звук</h3>
+      <input id="f-title" class="input input-bordered w-full" placeholder="Назва">
+      <input id="f-url" class="input input-bordered w-full" placeholder="URL або /audio/file.mp3">
+      <select id="f-category" class="select select-bordered w-full"></select>
+      <select id="f-color" class="select select-bordered w-full"></select>
+      <button id="f-hotkey" class="btn btn-outline w-full">Натисни, щоб призначити клавішу</button>
+      <div class="modal-action">
+        <button id="f-cancel" class="btn">Скасувати</button>
+        <button id="f-save" class="btn btn-primary">Зберегти</button>
+      </div>
+    </div>
+  </dialog>
+
+  <div id="toasts" class="toast toast-end"></div>
+
+  <!-- 3 рівні: API → Service → UI -->
+  <script src="js/api.js"></script>
+  <script src="js/service.js"></script>
+  <script src="js/ui.js"></script>
+</body>
+</html>
